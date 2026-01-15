@@ -9,7 +9,6 @@
 - **Styling**: Tailwind CSS v4 + Shadcn UI
 - **State Management**: TanStack Query (server state) + React state (local)
 - **Database**: PostgreSQL + Drizzle ORM
-- **Auth**: Better Auth
 - **AI Integration**: TanStack AI + OpenAI
 - **Canvas Editor**: @xyflow/react
 
@@ -35,10 +34,9 @@
 │                      Data Layer (Drizzle)                       │
 ├─────────────────────────────────────────────────────────────────┤
 │  PostgreSQL                                                     │
-│  ├── user/session/etc   │  ├── prompts                         │
-│  │   (Better Auth)      │  ├── blocks                          │
-│  ├── tags               │  └── prompt_blocks                   │
-│  └── prompt_tags        │                                      │
+│  ├── prompts            │  ├── tags                            │
+│  ├── blocks             │  └── prompt_tags                     │
+│  └── prompt_blocks      │                                      │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -46,8 +44,7 @@
 
 1. **Prompt** - A complete prompt document that can be exported
 2. **Block** - A reusable piece of prompt content (the "LEGO" building block)
-3. **Connection** - Links between blocks in the mind-map editor
-4. **Tag** - Flat organization via tagging (simpler than folders)
+3. **Tag** - Flat organization via tagging
 
 ---
 
@@ -55,15 +52,11 @@
 
 ### Phase 1: Foundation Setup
 
-- [ ] Set up Better Auth
-  - [ ] Install and configure Better Auth with Drizzle adapter
-  - [ ] Set up auth routes and middleware
-  - [ ] Create login/signup UI
 - [ ] Set up database schema with Drizzle
-  - [ ] Create `prompts` table (id, title, content, userId, createdAt, updatedAt)
-  - [ ] Create `blocks` table (id, name, content, category, userId, createdAt)
+  - [ ] Create `prompts` table (id, title, content, createdAt, updatedAt)
+  - [ ] Create `blocks` table (id, name, content, category, createdAt)
   - [ ] Create `prompt_blocks` junction table (promptId, blockId, position, metadata)
-  - [ ] Create `tags` table (id, name, color, userId)
+  - [ ] Create `tags` table (id, name, color)
   - [ ] Create `prompt_tags` junction table (promptId, tagId)
 - [ ] Set up database connection and migrations
 - [ ] Create base server functions for CRUD operations
@@ -73,12 +66,10 @@
 - [ ] Create app layout with sidebar navigation
   - [ ] Sidebar with tag-based filtering
   - [ ] Main content area with resizable panels
-  - [ ] Header with user menu
 - [ ] Implement routing structure
-  - [ ] `/` - Dashboard/home
+  - [ ] `/` - Dashboard/prompt list
   - [ ] `/editor/:promptId` - Visual prompt editor
   - [ ] `/library` - Block library browser
-  - [ ] `/settings` - App settings
 
 ### Phase 3: Prompt Library & Management
 
@@ -153,6 +144,5 @@
 
 **Next Steps**:
 
-1. Set up Better Auth (Phase 1)
-2. Design and implement database schema (Phase 1)
-3. Set up basic app shell and routing (Phase 2)
+1. Design and implement database schema (Phase 1)
+2. Set up basic app shell and routing (Phase 2)
