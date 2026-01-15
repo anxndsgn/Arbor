@@ -73,15 +73,15 @@
 
 ### Phase 3: Prompt Library & Management
 
-- [ ] Build tag management
-  - [ ] Create/rename/delete tags
-  - [ ] Color picker for tags
-- [ ] Build prompt list view
-  - [ ] Search and filter prompts
-  - [ ] Filter by tags
-  - [ ] Create new prompt
-  - [ ] Duplicate/delete prompts
-- [ ] Implement prompt preview cards
+- [x] Build tag management
+  - [x] Create/rename/delete tags
+  - [x] Color picker for tags
+- [x] Build prompt list view
+  - [x] Search and filter prompts
+  - [x] Filter by tags
+  - [x] Create new prompt
+  - [x] Duplicate/delete prompts
+- [x] Implement prompt preview cards
 
 ### Phase 4: Visual Prompt Editor (Mind-Map Style)
 
