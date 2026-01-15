@@ -61,15 +61,15 @@
 - [x] Set up database connection and migrations
 - [x] Create base server functions for CRUD operations
 
-### Phase 2: Core UI Shell
+### Phase 2: Core UI Shell ✅
 
-- [ ] Create app layout with sidebar navigation
-  - [ ] Sidebar with tag-based filtering
-  - [ ] Main content area with resizable panels
-- [ ] Implement routing structure
-  - [ ] `/` - Dashboard/prompt list
-  - [ ] `/editor/:promptId` - Visual prompt editor
-  - [ ] `/library` - Block library browser
+- [x] Create app layout with sidebar navigation
+  - [x] Sidebar with tag-based filtering
+  - [x] Main content area with resizable panels
+- [x] Implement routing structure
+  - [x] `/` - Dashboard/prompt list
+  - [x] `/editor/:promptId` - Visual prompt editor
+  - [x] `/library` - Block library browser
 
 ### Phase 3: Prompt Library & Management
 
