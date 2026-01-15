@@ -50,16 +50,16 @@
 
 ## Build Steps
 
-### Phase 1: Foundation Setup
+### Phase 1: Foundation Setup ✅
 
-- [ ] Set up database schema with Drizzle
-  - [ ] Create `prompts` table (id, title, content, createdAt, updatedAt)
-  - [ ] Create `blocks` table (id, name, content, category, createdAt)
-  - [ ] Create `prompt_blocks` junction table (promptId, blockId, position, metadata)
-  - [ ] Create `tags` table (id, name, color)
-  - [ ] Create `prompt_tags` junction table (promptId, tagId)
-- [ ] Set up database connection and migrations
-- [ ] Create base server functions for CRUD operations
+- [x] Set up database schema with Drizzle
+  - [x] Create `prompts` table (id, title, content, createdAt, updatedAt)
+  - [x] Create `blocks` table (id, name, content, category, createdAt)
+  - [x] Create `prompt_blocks` junction table (promptId, blockId, position, metadata)
+  - [x] Create `tags` table (id, name, color)
+  - [x] Create `prompt_tags` junction table (promptId, tagId)
+- [x] Set up database connection and migrations
+- [x] Create base server functions for CRUD operations
 
 ### Phase 2: Core UI Shell
 
