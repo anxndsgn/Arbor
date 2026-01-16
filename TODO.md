@@ -40,6 +40,59 @@
 └─────────────────────────────────────────────────────────────────┘
 ```
 
+### Markdown and Mindmap Conversion Architecture
+
+Bidirectional conversion between Markdown and Mindmap (similar to [markmap](https://github.com/markmap/markmap) but fully reversible).
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Intermediate Tree Model                       │
+│  TreeNode { id, content, type, children[], metadata }           │
+├─────────────────────────────────────────────────────────────────┤
+│        ↑                                    ↑                   │
+│   MarkdownParser                      MindmapParser             │
+│   (remark/mdast)                      (from xyflow nodes)       │
+│        ↓                                    ↓                   │
+│   MarkdownSerializer                  MindmapSerializer         │
+│   (tree → md string)                  (tree → xyflow nodes)     │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Node Type System
+
+Each node carries a `nodeType` property to preserve Markdown semantics:
+
+| nodeType    | Markdown Output       | Default Level Rule |
+| ----------- | --------------------- | ------------------ |
+| `heading-1` | `# Title`             | Level 0 (root)     |
+| `heading-2` | `## Section`          | Level 1            |
+| `heading-3` | `### Subsection`      | Level 2            |
+| `heading-4` | `#### Sub-subsection` | Level 3            |
+| `list-item` | `- Item` (nested)     | Level 4+           |
+| `paragraph` | Plain text block      | Explicit only      |
+
+#### Conversion Strategies
+
+**Markdown → Mindmap (Import)**
+
+- Parse Markdown using `remark` to get MDAST
+- Transform MDAST to Intermediate Tree (preserve heading levels as `nodeType`)
+- Convert Intermediate Tree to xyflow nodes with auto-layout
+
+**Mindmap → Markdown (Export)**
+
+- Extract tree structure from xyflow nodes
+- If `nodeType` is set → use explicit type
+- If `nodeType` is unset → infer from tree depth (Level 0 = H1, Level 1 = H2, etc.)
+- Serialize tree to Markdown string
+
+#### Key Design Decisions
+
+1. **Intermediate Tree Model**: Both formats convert through a unified tree structure
+2. **Explicit Type > Inferred Type**: User-set `nodeType` takes precedence over depth-based inference
+3. **Graceful Degradation**: Deep nodes (Level 4+) default to nested list items
+4. **Metadata Preservation**: Store original Markdown attributes (links, emphasis) in `metadata`
+
 ### Core Domain Models
 
 1. **Prompt** - A complete prompt document that can be exported
@@ -50,18 +103,44 @@
 
 ## Build Steps
 
-### Phase 1: Foundation Setup
+### Phase 1: Visual Prompt Editor (Mind-Map Style) ✅ In Progress
 
-- [ ] Set up database schema with Drizzle
-  - [ ] Create `prompts` table (id, title, content, createdAt, updatedAt)
-  - [ ] Create `blocks` table (id, name, content, category, createdAt)
-  - [ ] Create `prompt_blocks` junction table (promptId, blockId, position, metadata)
-  - [ ] Create `tags` table (id, name, color)
-  - [ ] Create `prompt_tags` junction table (promptId, tagId)
-- [ ] Set up database connection and migrations
-- [ ] Create base server functions for CRUD operations
+> Mind-map editor with tree structure, auto-layout (Xmind-like), nodes flow from root.
 
-### Phase 2: Core UI Shell
+- [ ] Integrate @xyflow/react canvas editor
+- [ ] Implement block nodes on canvas
+  - [ ] Text block node
+  - [ ] Reference block (link to other prompts/blocks)
+- [ ] Implement node interaction
+  - [ ] Enter to create descendant node
+  - [ ] Tab to create sibling node
+- [ ] Node type selector (for Markdown semantics)
+  - [ ] Heading levels (H1-H4)
+  - [ ] List item
+  - [ ] Paragraph
+- [ ] Collapse/expand subtrees
+
+### Phase 2: Markdown ↔ Mindmap Conversion
+
+> Bidirectional conversion with semantic preservation.
+
+- [ ] Build Intermediate Tree Model
+  - [ ] Define `TreeNode` type: `{ id, content, nodeType, children[], metadata }`
+  - [ ] Implement tree traversal utilities
+- [ ] Markdown → Mindmap (Import)
+  - [ ] Integrate `remark` for Markdown parsing (MDAST)
+  - [ ] Transform MDAST → Intermediate Tree
+  - [ ] Convert Intermediate Tree → xyflow nodes
+  - [ ] UI: Import Markdown file/paste
+- [ ] Mindmap → Markdown (Export)
+  - [ ] Extract tree from xyflow nodes
+  - [ ] Apply nodeType (explicit) or infer from depth
+  - [ ] Serialize tree → Markdown string
+  - [ ] UI: Export to Markdown button
+- [ ] Live preview panel (optional)
+  - [ ] Show Markdown preview while editing mindmap
+
+### Phase 3: Core UI Shell
 
 - [ ] Create app layout with sidebar navigation
   - [ ] Sidebar with tag-based filtering
@@ -71,7 +150,17 @@
   - [ ] `/editor/:promptId` - Visual prompt editor
   - [ ] `/library` - Block library browser
 
-### Phase 3: Prompt Library & Management
+### Phase 4: Database & Persistence
+
+- [ ] Set up database schema with Drizzle
+  - [ ] Create `prompts` table (id, title, content, treeData, createdAt, updatedAt)
+  - [ ] Create `blocks` table (id, name, content, category, createdAt)
+  - [ ] Create `tags` table (id, name, color)
+  - [ ] Create junction tables (prompt_blocks, prompt_tags)
+- [ ] Set up database connection and migrations
+- [ ] Create base server functions for CRUD operations
+
+### Phase 5: Prompt Library & Management
 
 - [ ] Build tag management
   - [ ] Create/rename/delete tags
@@ -83,20 +172,7 @@
   - [ ] Duplicate/delete prompts
 - [ ] Implement prompt preview cards
 
-### Phase 4: Visual Prompt Editor (Mind-Map Style)
-
-//mind-map editor and interaction, tree structure, not node flow editor, node in one side from the root node, auto layout, no hand layout, just like Xmind.
-
-- [x] Integrate @xyflow/react canvas editor
-- [/] Implement block nodes on canvas
-  - [x] Text block node
-  - [ ] Variable/placeholder block // no variable node for now
-  - [ ] Reference block (link to other prompts blocks)
-- [x] Implement node interaction
-  - [x] Enter to create descendant node
-  - [x] Tab to create sibling node
-
-### Phase 5: Block Library ("Prompt LEGO")
+### Phase 6: Block Library ("Prompt LEGO")
 
 - [ ] Build block library browser
   - [ ] Category-based organization
@@ -106,7 +182,7 @@
   - [ ] Create from scratch
   - [ ] Extract from existing prompt
 
-### Phase 6: LLM-Assisted Drafting
+### Phase 7: LLM-Assisted Drafting
 
 - [ ] Integrate OpenAI via TanStack AI
   - [ ] Set up AI server functions
@@ -116,7 +192,7 @@
   - [ ] Generate prompt suggestions
   - [ ] Refine existing content
 
-### Phase 7: Export & Sync
+### Phase 8: Export & Sync
 
 - [ ] Implement export functionality
   - [ ] Export to Markdown (.md)
@@ -128,7 +204,7 @@
   - [ ] Watch mode for auto-sync
   - [ ] Configure target directories
 
-### Phase 8: Polish & Launch
+### Phase 9: Polish & Launch
 
 - [ ] Add keyboard shortcuts
 - [ ] Implement undo/redo for editor
@@ -139,15 +215,17 @@
 
 ## Current Status
 
-**Project State**: Fresh TanStack Start boilerplate with Shadcn UI components installed.
+**Project State**: Visual Prompt Editor (Phase 1) in progress with basic mind-map functionality.
 
-**Priority**: Visual Prompt Editor (Phase 4) first - focus on the core editing experience before backend infrastructure.
+**Current Focus**: Complete Phase 1 → Phase 2 (Markdown ↔ Mindmap Conversion)
 
 **Next Steps**:
 
-1. Implement Visual Prompt Editor (Phase 4)
-   - Integrate @xyflow/react for mind-map style canvas
-   - Build tree structure with auto-layout (Xmind-like, nodes flow from root)
-   - Implement keyboard navigation (Enter = child, Tab = sibling)
-2. Set up basic app shell and routing (Phase 2) - minimal structure to host the editor
+1. **Phase 1 Remaining**:
+   - Add node type selector for Markdown semantics (H1-H4, list, paragraph)
+   - Implement collapse/expand for subtrees
+2. **Phase 2**:
+   - Build Intermediate Tree Model as conversion bridge
+   - Implement Markdown import (remark → tree → xyflow)
+   - Implement Markdown export (xyflow → tree → Markdown string)
 3. Design and implement database schema (Phase 1) - after editor UX is validated
