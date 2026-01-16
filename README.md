@@ -12,13 +12,3 @@ It helps you structure, refine, and reuse prompts — including regular prompts,
 **Reusable prompt LEGO** Break prompts into reusable building blocks and maintain your own library of composable prompt pieces.
 
 **Local deployment via CLI** Export to .md or .json, or sync directly into your local AI workflows (e.g. ~/.claude/skills) using a lightweight CLI bridge.
-
-## Tech Stack
-
-- TypeScript
-- React
-- TanStack Start
-- Tailwind CSS
-- Shadcn UI
-- Drizzle ORM
-- Postgres

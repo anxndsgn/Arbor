@@ -87,14 +87,14 @@
 
 //mind-map editor and interaction, tree structure, not node flow editor, node in one side from the root node, auto layout, no hand layout, just like Xmind.
 
-- [ ] Integrate @xyflow/react canvas editor
-- [ ] Implement block nodes on canvas
-  - [ ] Text block node
+- [x] Integrate @xyflow/react canvas editor
+- [/] Implement block nodes on canvas
+  - [x] Text block node
   - [ ] Variable/placeholder block // no variable node for now
   - [ ] Reference block (link to other prompts blocks)
-- [ ] Implement node interaction
-  - [ ] Enter to create descendant node
-  - [ ] Tab to create sibling node
+- [x] Implement node interaction
+  - [x] Enter to create descendant node
+  - [x] Tab to create sibling node
 
 ### Phase 5: Block Library ("Prompt LEGO")
 
