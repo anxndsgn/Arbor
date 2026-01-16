@@ -16,7 +16,7 @@ See README.md for this project's overview.
 
 ## Memory
 
-See MEMORY.md for this project's memory file. When you think some information is important during conversation, add it to the memory file.
+See MEMORY.md for this project's memory， read frontmatter first, DO NOT read the whole file, only read the whole file if you think it is necessary. When you think some information is important during conversation, add it to the memory file and update the frontmatter.
 
 ## Rules
 
