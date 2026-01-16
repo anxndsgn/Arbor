@@ -9,6 +9,7 @@ See README.md for this project's overview.
 - **Frontend**: React 19 + TypeScript
 - **Framework**: TanStack Start (SSR + file-based routing)
 - **Styling**: Tailwind CSS v4 + Shadcn UI
+- **Components**：Base-UI
 - **State Management**: TanStack Query (server state) + React state (local)
 - **Database**: PostgreSQL + Drizzle ORM
 - **AI Integration**: TanStack AI + OpenAI
@@ -17,6 +18,18 @@ See README.md for this project's overview.
 ## Memory
 
 See MEMORY.md for this project's memory. Read frontmatter first, DO NOT read the whole file; only read the whole file if you think it is necessary. When you think some information is important during conversation, add it to the memory file and update the frontmatter. When a complex bug is resolved, it must be recorded in MEMORY.md with its cause and solution, and tagged in the frontmatter's memory-list.
+
+## Prompt Files Responsibilities
+
+- **AGENTS.md**: Non-negotiable rules, tech stack, and how to use memory.
+- **PLAN.md**: Architecture overview, roadmap, and current focus.
+- **MEMORY.md**: Durable learnings, bug fixes, and user preferences.
+
+## Update Triggers
+
+- **AGENTS.md**: When global rules or stack decisions change.
+- **PLAN.md**: When phases change, scope shifts, or new milestones are added.
+- **MEMORY.md**: When a bug is resolved, a repeatable workflow is discovered, or user preferences change.
 
 ## Rules
 
