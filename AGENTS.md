@@ -16,7 +16,7 @@ See README.md for this project's overview.
 
 ## Memory
 
-See MEMORY.md for this project's memory， read frontmatter first, DO NOT read the whole file, only read the whole file if you think it is necessary. When you think some information is important during conversation, add it to the memory file and update the frontmatter.
+See MEMORY.md for this project's memory. Read frontmatter first, DO NOT read the whole file; only read the whole file if you think it is necessary. When you think some information is important during conversation, add it to the memory file and update the frontmatter. When a complex bug is resolved, it must be recorded in MEMORY.md with its cause and solution, and tagged in the frontmatter's memory-list.
 
 ## Rules
 
