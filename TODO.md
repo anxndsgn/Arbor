@@ -85,17 +85,16 @@
 
 ### Phase 4: Visual Prompt Editor (Mind-Map Style)
 
+//mind-map editor and interaction, tree structure, not node flow editor, node in one side from the root node, auto layout, no hand layout, just like Xmind.
+
 - [ ] Integrate @xyflow/react canvas editor
 - [ ] Implement block nodes on canvas
   - [ ] Text block node
-  - [ ] Variable/placeholder block
-  - [ ] Reference block (link to other prompts)
-- [ ] Implement node connections
-  - [ ] Drag to connect blocks
-  - [ ] Connection validation
-- [ ] Build block properties panel
-  - [ ] Edit block content
-  - [ ] Configure block settings
+  - [ ] Variable/placeholder block // no variable node for now
+  - [ ] Reference block (link to other prompts blocks)
+- [ ] Implement node interaction
+  - [ ] Enter to create descendant node
+  - [ ] Tab to create sibling node
 
 ### Phase 5: Block Library ("Prompt LEGO")
 
@@ -142,7 +141,13 @@
 
 **Project State**: Fresh TanStack Start boilerplate with Shadcn UI components installed.
 
+**Priority**: Visual Prompt Editor (Phase 4) first - focus on the core editing experience before backend infrastructure.
+
 **Next Steps**:
 
-1. Design and implement database schema (Phase 1)
-2. Set up basic app shell and routing (Phase 2)
+1. Implement Visual Prompt Editor (Phase 4)
+   - Integrate @xyflow/react for mind-map style canvas
+   - Build tree structure with auto-layout (Xmind-like, nodes flow from root)
+   - Implement keyboard navigation (Enter = child, Tab = sibling)
+2. Set up basic app shell and routing (Phase 2) - minimal structure to host the editor
+3. Design and implement database schema (Phase 1) - after editor UX is validated
