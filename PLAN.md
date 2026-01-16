@@ -2,16 +2,6 @@
 
 ## Architecture Overview
 
-### Tech Stack
-
-- **Frontend**: React 19 + TypeScript
-- **Framework**: TanStack Start (SSR + file-based routing)
-- **Styling**: Tailwind CSS v4 + Shadcn UI
-- **State Management**: TanStack Query (server state) + React state (local)
-- **Database**: PostgreSQL + Drizzle ORM
-- **AI Integration**: TanStack AI + OpenAI
-- **Canvas Editor**: @xyflow/react
-
 ### Application Architecture
 
 ```

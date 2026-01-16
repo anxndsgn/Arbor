@@ -6,13 +6,13 @@ See README.md for this project's overview.
 
 ## Tech Stack
 
-- TypeScript
-- React
-- TanStack Start
-- Tailwind CSS
-- Shadcn UI
-- Drizzle ORM
-- Postgres
+- **Frontend**: React 19 + TypeScript
+- **Framework**: TanStack Start (SSR + file-based routing)
+- **Styling**: Tailwind CSS v4 + Shadcn UI
+- **State Management**: TanStack Query (server state) + React state (local)
+- **Database**: PostgreSQL + Drizzle ORM
+- **AI Integration**: TanStack AI + OpenAI
+- **Canvas Editor**: @xyflow/react
 
 ## Memory
 
