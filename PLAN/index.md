@@ -205,17 +205,17 @@ Each node carries a `nodeType` property to preserve Markdown semantics:
 
 ## Current Status
 
-**Project State**: Visual Prompt Editor (Phase 1) in progress with basic mind-map functionality.
+**Project State**: Visual Prompt Editor (Phase 1) starting
 
-**Current Focus**: Complete Phase 1 → Phase 2 (Markdown ↔ Mindmap Conversion)
+**Current Focus**: Phase 1 - Visual Prompt Editor
 
-**Next Steps**:
+**Detailed Plans**:
 
-1. **Phase 1 Remaining**:
-   - Add node type selector for Markdown semantics (H1-H4, list, paragraph)
-   - Implement collapse/expand for subtrees
-2. **Phase 2**:
-   - Build Intermediate Tree Model as conversion bridge
-   - Implement Markdown import (remark → tree → xyflow)
-   - Implement Markdown export (xyflow → tree → Markdown string)
-3. Design and implement database schema (Phase 1) - after editor UX is validated
+- [Phase 1: Visual Prompt Editor](./phase-1.md) - Mind-map style editor with @xyflow/react
+
+**Next Actions**:
+
+1. Set up editor component structure
+2. Implement TextBlockNode with auto-layout
+3. Add keyboard navigation (Enter/Tab for node creation)
+4. Implement node type selector and collapse/expand
