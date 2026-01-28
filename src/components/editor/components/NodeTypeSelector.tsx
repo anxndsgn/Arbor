@@ -30,7 +30,7 @@ export const NodeTypeSelector = memo(function NodeTypeSelector({
 }: NodeTypeSelectorProps) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
+      <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-48">
         {nodeTypeOptions.map((option) => (
           <DropdownMenuItem

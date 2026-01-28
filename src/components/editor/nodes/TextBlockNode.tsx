@@ -1,7 +1,7 @@
 import { memo, useCallback, useRef, useEffect, useState } from 'react';
 import { Handle, Position, type NodeProps } from '@xyflow/react';
 import { IconChevronRight } from '@tabler/icons-react';
-import type { BlockNodeData, NodeType } from '@/types/editor';
+import type { BlockNodeData, NodeType, TextBlockNode as TextBlockNodeType } from '@/types/editor';
 import { useEditor } from '../context';
 import { NodeTypeSelector } from '../components';
 import { cn } from '@/lib/utils';
@@ -50,13 +50,14 @@ export const TextBlockNode = memo(function TextBlockNode({
   id,
   data,
   selected,
-}: NodeProps<BlockNodeData>) {
+}: NodeProps<TextBlockNodeType>) {
+  const nodeData = data as BlockNodeData;
   const { updateNodeData, getChildCount, toggleCollapse, setNodeType } = useEditor();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const childCount = getChildCount(id);
-  const style = nodeTypeStyles[data.nodeType];
+  const style = nodeTypeStyles[nodeData.nodeType];
   const isRoot = id === 'root';
 
   // Auto-resize textarea
@@ -70,7 +71,7 @@ export const TextBlockNode = memo(function TextBlockNode({
 
   useEffect(() => {
     adjustHeight();
-  }, [data.content, adjustHeight]);
+  }, [nodeData.content, adjustHeight]);
 
   useEffect(() => {
     if (selected && isEditing && textareaRef.current) {
@@ -127,7 +128,7 @@ export const TextBlockNode = memo(function TextBlockNode({
       className={cn(
         'group relative flex items-center gap-2 rounded-lg border bg-background px-3 py-2 shadow-sm transition-all',
         selected ? 'border-primary shadow-md ring-1 ring-primary/20' : 'border-border',
-        data.isCollapsed && childCount > 0 && 'border-dashed'
+        nodeData.isCollapsed && childCount > 0 && 'border-dashed'
       )}
       onDoubleClick={handleDoubleClick}
       onMouseEnter={() => setIsHovered(true)}
@@ -143,12 +144,12 @@ export const TextBlockNode = memo(function TextBlockNode({
       )}
 
       {/* Node type badge */}
-      <NodeTypeSelector currentType={data.nodeType} onSelect={handleNodeTypeChange}>
+      <NodeTypeSelector currentType={nodeData.nodeType} onSelect={handleNodeTypeChange}>
         <button
           className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-muted text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/80 hover:text-foreground"
           onClick={(e) => e.stopPropagation()}
         >
-          {nodeTypeLabels[data.nodeType]}
+          {nodeTypeLabels[nodeData.nodeType]}
         </button>
       </NodeTypeSelector>
 
@@ -160,7 +161,7 @@ export const TextBlockNode = memo(function TextBlockNode({
         {isEditing ? (
           <textarea
             ref={textareaRef}
-            value={data.content}
+            value={nodeData.content}
             onChange={handleContentChange}
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
@@ -177,10 +178,10 @@ export const TextBlockNode = memo(function TextBlockNode({
             className={cn(
               'min-h-[1.5em] w-full cursor-text text-center',
               style.className,
-              !data.content && 'text-muted-foreground/50'
+              !nodeData.content && 'text-muted-foreground/50'
             )}
           >
-            {data.content || style.placeholder}
+            {nodeData.content || style.placeholder}
           </div>
         )}
       </div>
@@ -201,14 +202,14 @@ export const TextBlockNode = memo(function TextBlockNode({
           onClick={handleToggleCollapse}
           className={cn(
             'absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 flex h-5 w-5 items-center justify-center rounded-full transition-all',
-            data.isCollapsed
+            nodeData.isCollapsed
               ? 'bg-foreground text-background'
               : 'bg-muted-foreground/40 text-background hover:bg-primary',
-            !data.isCollapsed && !isHovered && 'opacity-0',
-            (data.isCollapsed || isHovered) && 'opacity-100'
+            !nodeData.isCollapsed && !isHovered && 'opacity-0',
+            (nodeData.isCollapsed || isHovered) && 'opacity-100'
           )}
         >
-          {data.isCollapsed ? (
+          {nodeData.isCollapsed ? (
             <span className="text-[10px] font-medium">{childCount}</span>
           ) : (
             <IconChevronRight className="h-3 w-3" />

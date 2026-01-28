@@ -93,40 +93,40 @@ Each node carries a `nodeType` property to preserve Markdown semantics:
 
 ## Build Steps
 
-### Phase 1: Visual Prompt Editor (Mind-Map Style) ✅ In Progress
+### Phase 1: Visual Prompt Editor (Mind-Map Style) ✅ Complete
 
 > Mind-map editor with tree structure, auto-layout (Xmind-like), nodes flow from root.
 
-- [ ] Integrate @xyflow/react canvas editor
-- [ ] Implement block nodes on canvas
-  - [ ] Text block node
-  - [ ] Reference block (link to other prompts/blocks)
-- [ ] Implement node interaction
-  - [ ] Enter to create descendant node
-  - [ ] Tab to create sibling node
-- [ ] Node type selector (for Markdown semantics)
-  - [ ] Heading levels (H1-H4)
-  - [ ] List item
-  - [ ] Paragraph
-- [ ] Collapse/expand subtrees
+- [x] Integrate @xyflow/react canvas editor
+- [x] Implement block nodes on canvas
+  - [x] Text block node
+  - [x] Reference block (link to other prompts/blocks)
+- [x] Implement node interaction
+  - [x] Enter to create descendant node
+  - [x] Tab to create sibling node
+- [x] Node type selector (for Markdown semantics)
+  - [x] Heading levels (H1-H4)
+  - [x] List item
+  - [x] Paragraph
+- [x] Collapse/expand subtrees
 
-### Phase 2: Markdown ↔ Mindmap Conversion
+### Phase 2: Markdown ↔ Mindmap Conversion ✅ Complete
 
 > Bidirectional conversion with semantic preservation.
 
-- [ ] Build Intermediate Tree Model
-  - [ ] Define `TreeNode` type: `{ id, content, nodeType, children[], metadata }`
-  - [ ] Implement tree traversal utilities
-- [ ] Markdown → Mindmap (Import)
-  - [ ] Integrate `remark` for Markdown parsing (MDAST)
-  - [ ] Transform MDAST → Intermediate Tree
-  - [ ] Convert Intermediate Tree → xyflow nodes
-  - [ ] UI: Import Markdown file/paste
-- [ ] Mindmap → Markdown (Export)
-  - [ ] Extract tree from xyflow nodes
-  - [ ] Apply nodeType (explicit) or infer from depth
-  - [ ] Serialize tree → Markdown string
-  - [ ] UI: Export to Markdown button
+- [x] Build Intermediate Tree Model
+  - [x] Define `TreeNode` type: `{ id, content, nodeType, children[], metadata }`
+  - [x] Implement tree traversal utilities
+- [x] Markdown → Mindmap (Import)
+  - [x] Integrate `remark` for Markdown parsing (MDAST)
+  - [x] Transform MDAST → Intermediate Tree
+  - [x] Convert Intermediate Tree → xyflow nodes
+  - [x] UI: Import Markdown file/paste
+- [x] Mindmap → Markdown (Export)
+  - [x] Extract tree from xyflow nodes
+  - [x] Apply nodeType (explicit) or infer from depth
+  - [x] Serialize tree → Markdown string
+  - [x] UI: Export to Markdown button
 - [ ] Live preview panel (optional)
   - [ ] Show Markdown preview while editing mindmap
 
@@ -205,17 +205,26 @@ Each node carries a `nodeType` property to preserve Markdown semantics:
 
 ## Current Status
 
-**Project State**: Visual Prompt Editor (Phase 1) starting
+**Project State**: Phases 1 & 2 Complete
 
-**Current Focus**: Phase 1 - Visual Prompt Editor
+**Current Focus**: Phase 3 - Core UI Shell
 
 **Detailed Plans**:
 
-- [Phase 1: Visual Prompt Editor](./phase-1.md) - Mind-map style editor with @xyflow/react
+- [Phase 1: Visual Prompt Editor](./phase-1.md) ✅ - Mind-map style editor with @xyflow/react
+- [Phase 2: Markdown Conversion](./phase-2.md) ✅ - Import/Export Markdown
+
+**Completed**:
+
+1. ✅ Visual Prompt Editor with d3-hierarchy tree layout
+2. ✅ Keyboard navigation (Enter/Tab for node creation, arrows to navigate)
+3. ✅ Node type selector (H1-H4, list-item, paragraph)
+4. ✅ Collapse/expand subtrees with child count
+5. ✅ Markdown import (paste or file upload)
+6. ✅ Markdown export (preview, copy, download)
 
 **Next Actions**:
 
-1. Set up editor component structure
-2. Implement TextBlockNode with auto-layout
-3. Add keyboard navigation (Enter/Tab for node creation)
-4. Implement node type selector and collapse/expand
+1. Create app layout with sidebar navigation
+2. Implement routing structure (/, /editor/:promptId, /library)
+3. Set up database schema with Drizzle (Phase 4)

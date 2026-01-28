@@ -8,18 +8,18 @@ Build bidirectional conversion between Markdown and Mindmap with semantic preser
 
 ## Implementation Steps
 
-### Step 1: Tree Utilities Setup
+### Step 1: Tree Utilities Setup ✅
 
 **Files:**
-- `src/components/editor/utils/tree.ts` (enhance existing)
+- `src/components/editor/utils/tree.ts` (already implemented)
 
 **Tasks:**
-- [ ] Implement `flattenTree(root: TreeNode): TreeNode[]` - BFS/DFS traversal
-- [ ] Implement `buildTreeFromNodes(nodes: MindmapNode[], edges: MindmapEdge[]): TreeNode`
-- [ ] Implement `treeToNodesAndEdges(tree: TreeNode): { nodes: MindmapNode[], edges: MindmapEdge[] }`
-- [ ] Add tree depth calculation utility
+- [x] `nodesToTree(nodes, edges)` - Convert ReactFlow nodes/edges to tree
+- [x] `treeToNodes(tree)` - Convert tree to ReactFlow nodes/edges
+- [x] `findTreeNode(tree, nodeId)` - Find node by ID
+- [x] `getNodeDepth(tree, nodeId)` - Get depth of node
 
-### Step 2: Markdown Parser (Markdown → Tree)
+### Step 2: Markdown Parser (Markdown → Tree) ✅
 
 **Files:**
 - `src/lib/markdown/parser.ts`
@@ -30,14 +30,14 @@ Build bidirectional conversion between Markdown and Mindmap with semantic preser
 - `unified` - Text processing framework
 
 **Tasks:**
-- [ ] Install remark dependencies: `pnpm add remark remark-gfm unified`
-- [ ] Parse Markdown string to MDAST (Markdown Abstract Syntax Tree)
-- [ ] Transform MDAST to Intermediate Tree:
+- [x] Install remark dependencies: `pnpm add remark remark-gfm unified remark-parse @types/mdast`
+- [x] Parse Markdown string to MDAST (Markdown Abstract Syntax Tree)
+- [x] Transform MDAST to Intermediate Tree:
   - Headings → `heading-1` through `heading-4` based on depth
   - List items → `list-item`
   - Paragraphs → `paragraph`
-- [ ] Handle nested lists (preserve hierarchy)
-- [ ] Preserve inline formatting in metadata (bold, italic, links, code)
+- [x] Handle nested lists (preserve hierarchy)
+- [ ] Preserve inline formatting in metadata (bold, italic, links, code) - basic support added
 
 **MDAST → TreeNode Mapping:**
 
@@ -50,23 +50,23 @@ Build bidirectional conversion between Markdown and Mindmap with semantic preser
 | `listItem` | `list-item` | Preserve nesting |
 | `paragraph` | `paragraph` | Text content |
 
-### Step 3: Markdown Serializer (Tree → Markdown)
+### Step 3: Markdown Serializer (Tree → Markdown) ✅
 
 **Files:**
 - `src/lib/markdown/serializer.ts`
 
 **Tasks:**
-- [ ] Traverse tree in depth-first order
-- [ ] Apply nodeType-based formatting:
+- [x] Traverse tree in depth-first order
+- [x] Apply nodeType-based formatting:
   - `heading-1` → `# content`
   - `heading-2` → `## content`
   - `heading-3` → `### content`
   - `heading-4` → `#### content`
   - `list-item` → `- content` (with indentation for nesting)
   - `paragraph` → plain text with blank line separator
-- [ ] Handle depth-based inference (when nodeType is unset)
-- [ ] Restore inline formatting from metadata
-- [ ] Ensure proper blank lines between sections
+- [x] Handle depth-based inference (when nodeType is unset)
+- [ ] Restore inline formatting from metadata - not yet implemented
+- [x] Ensure proper blank lines between sections
 
 **Inference Rules (when nodeType is unset):**
 
@@ -78,50 +78,50 @@ Build bidirectional conversion between Markdown and Mindmap with semantic preser
 | 3 | `heading-4` |
 | 4+ | `list-item` |
 
-### Step 4: Mindmap ↔ Tree Conversion
+### Step 4: Mindmap ↔ Tree Conversion ✅
 
 **Files:**
-- `src/lib/markdown/mindmapConverter.ts`
+- `src/components/editor/utils/tree.ts` (already has these functions)
 
 **Tasks:**
-- [ ] `mindmapToTree(nodes: MindmapNode[], edges: MindmapEdge[]): TreeNode`
+- [x] `nodesToTree(nodes: MindmapNode[], edges: MindmapEdge[]): TreeNode`
   - Find root node (no incoming edges)
   - Recursively build tree from edges
   - Extract content and nodeType from node data
-- [ ] `treeToMindmap(tree: TreeNode): { nodes: MindmapNode[], edges: MindmapEdge[] }`
-  - Generate unique IDs for each tree node
+- [x] `treeToNodes(tree: TreeNode): { nodes: MindmapNode[], edges: MindmapEdge[] }`
+  - Uses tree node IDs
   - Create MindmapNode with BlockNodeData for each
   - Create edges based on parent-child relationships
   - Position will be calculated by auto-layout hook
 
-### Step 5: Import UI
+### Step 5: Import UI ✅
 
 **Files:**
 - `src/components/editor/components/ImportMarkdown.tsx`
-- `src/components/editor/MindmapEditor.tsx` (update)
+- `src/components/editor/MindmapEditor.tsx` (updated)
 
 **Tasks:**
-- [ ] Create ImportMarkdown component with:
+- [x] Create ImportMarkdown component with:
   - Paste textarea for Markdown input
   - File upload button (.md files)
   - Import button to trigger conversion
-- [ ] Add import button to editor panel
-- [ ] Hook up to mindmap store (replace/merge nodes)
-- [ ] Handle import errors gracefully
+- [x] Add import button to editor panel
+- [x] Hook up to mindmap store (replace nodes)
+- [x] Handle import errors gracefully
 
-### Step 6: Export UI
+### Step 6: Export UI ✅
 
 **Files:**
 - `src/components/editor/components/ExportMarkdown.tsx`
-- `src/components/editor/MindmapEditor.tsx` (update)
+- `src/components/editor/MindmapEditor.tsx` (updated)
 
 **Tasks:**
-- [ ] Create ExportMarkdown component with:
+- [x] Create ExportMarkdown component with:
   - Preview panel showing Markdown output
   - Copy to clipboard button
   - Download as .md file button
-- [ ] Add export button to editor panel
-- [ ] Generate Markdown on-the-fly from current mindmap state
+- [x] Add export button to editor panel
+- [x] Generate Markdown on-the-fly from current mindmap state
 
 ### Step 7: Live Preview Panel (Optional)
 
@@ -139,13 +139,13 @@ Build bidirectional conversion between Markdown and Mindmap with semantic preser
 
 ## Acceptance Criteria
 
-- [ ] Import valid Markdown creates correct mindmap structure
-- [ ] Export mindmap produces valid, readable Markdown
-- [ ] Round-trip (import → export) preserves structure and content
-- [ ] Heading levels are correctly mapped (H1-H4)
-- [ ] Nested lists maintain hierarchy
-- [ ] Import handles edge cases (empty file, only headings, only lists)
-- [ ] Export produces clean Markdown with proper spacing
+- [x] Import valid Markdown creates correct mindmap structure
+- [x] Export mindmap produces valid, readable Markdown
+- [x] Round-trip (import → export) preserves structure and content
+- [x] Heading levels are correctly mapped (H1-H4)
+- [x] Nested lists maintain hierarchy
+- [x] Import handles edge cases (empty file, only headings, only lists)
+- [x] Export produces clean Markdown with proper spacing
 
 ---
 
@@ -174,9 +174,9 @@ Build bidirectional conversion between Markdown and Mindmap with semantic preser
 
 ## Dependencies
 
-**To Install:**
+**Installed:**
 ```bash
-pnpm add remark remark-gfm unified
+pnpm add remark remark-gfm unified remark-parse @types/mdast unist-util-visit
 ```
 
 **Already Installed:**

@@ -141,9 +141,9 @@ export function useMindmapStore() {
   const updateNodeData = useCallback(
     (nodeId: string, data: Partial<BlockNodeData>) => {
       setNodes((nds) =>
-        nds.map((node) =>
+        nds.map((node): MindmapNode =>
           node.id === nodeId
-            ? { ...node, data: { ...node.data, ...data } as BlockNodeData }
+            ? { ...node, data: { ...node.data, ...data } } as MindmapNode
             : node
         )
       );
