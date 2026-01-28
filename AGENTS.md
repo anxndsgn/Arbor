@@ -17,19 +17,25 @@ See README.md for this project's overview.
 
 ## Memory
 
-See MEMORY.md for this project's memory. Read frontmatter first, DO NOT read the whole file; only read the whole file if you think it is necessary. When you think some information is important during conversation, add it to the memory file and update the frontmatter. When a complex bug is resolved, it must be recorded in MEMORY.md with its cause and solution, and tagged in the frontmatter's memory-list.
+See `MEMORY/index.md` for this project's memory index. Read frontmatter first to see available entries. Create new files in `MEMORY/` folder for detailed entries with proper metadata (type, title, tags). When a complex bug is resolved or skill is learned, add an entry file and update the index frontmatter.
+
+## Plan
+
+See `PLAN/index.md` for high-level architecture and roadmap. Create additional files in `PLAN/` folder for detailed implementation plans of specific features or phases.
 
 ## Prompt Files Responsibilities
 
-- **AGENTS.md**: Non-negotiable rules, tech stack, and how to use memory.
-- **PLAN.md**: Architecture overview, roadmap, and current focus.
-- **MEMORY.md**: Durable learnings, bug fixes, and user preferences.
+- **CLAUDE.md**: Non-negotiable rules, tech stack, and how to use memory/plan folders.
+- **PLAN/index.md**: High-level architecture overview, roadmap, and current focus.
+- **PLAN/*.md**: Detailed implementation plans for specific features.
+- **MEMORY/index.md**: Memory index with entry list in frontmatter.
+- **MEMORY/*.md**: Individual memory entries (bug fixes, patterns, preferences, skills).
 
 ## Update Triggers
 
-- **AGENTS.md**: When global rules or stack decisions change.
-- **PLAN.md**: When phases change, scope shifts, or new milestones are added.
-- **MEMORY.md**: When a bug is resolved, a repeatable workflow is discovered, or user preferences change.
+- **CLAUDE.md**: When global rules or stack decisions change.
+- **PLAN/**: When phases change, scope shifts, or new milestones are added.
+- **MEMORY/**: When a bug is resolved, a repeatable workflow is discovered, a skill is learned, or user preferences change.
 
 ## Rules
 
