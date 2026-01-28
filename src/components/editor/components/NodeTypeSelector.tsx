@@ -11,7 +11,6 @@ import { cn } from '@/lib/utils';
 interface NodeTypeSelectorProps {
   currentType: NodeType;
   onSelect: (type: NodeType) => void;
-  children: React.ReactNode;
 }
 
 const nodeTypeOptions: { type: NodeType; label: string; shortLabel: string; description: string }[] = [
@@ -23,39 +22,61 @@ const nodeTypeOptions: { type: NodeType; label: string; shortLabel: string; desc
   { type: 'paragraph', label: 'Paragraph', shortLabel: '¶', description: 'Plain text' },
 ];
 
+const nodeTypeLabels: Record<NodeType, string> = {
+  'heading-1': 'H1',
+  'heading-2': 'H2',
+  'heading-3': 'H3',
+  'heading-4': 'H4',
+  'list-item': '•',
+  paragraph: '¶',
+};
+
 export const NodeTypeSelector = memo(function NodeTypeSelector({
   currentType,
   onSelect,
-  children,
 }: NodeTypeSelectorProps) {
+  const handleSelect = (type: NodeType) => (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    onSelect(type);
+  };
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-48">
-        {nodeTypeOptions.map((option) => (
-          <DropdownMenuItem
-            key={option.type}
-            onClick={(e) => {
-              e.stopPropagation();
-              onSelect(option.type);
-            }}
-            className={cn(
-              'flex items-center gap-2',
-              currentType === option.type && 'bg-accent'
-            )}
-          >
-            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-muted text-xs font-medium">
-              {option.shortLabel}
-            </span>
-            <div className="flex flex-col">
-              <span className="text-sm">{option.label}</span>
-              <span className="text-xs text-muted-foreground">
-                {option.description}
+    <div
+      className="nopan nodrag nowheel"
+      onClick={(e) => e.stopPropagation()}
+      onPointerDown={(e) => e.stopPropagation()}
+      onMouseDown={(e) => e.stopPropagation()}
+    >
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-muted text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/80 hover:text-foreground cursor-pointer"
+        >
+          {nodeTypeLabels[currentType]}
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" className="w-48">
+          {nodeTypeOptions.map((option) => (
+            <DropdownMenuItem
+              key={option.type}
+              onClick={handleSelect(option.type)}
+              className={cn(
+                'flex items-center gap-2 cursor-pointer',
+                currentType === option.type && 'bg-accent'
+              )}
+            >
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-muted text-xs font-medium">
+                {option.shortLabel}
               </span>
-            </div>
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+              <div className="flex flex-col">
+                <span className="text-sm">{option.label}</span>
+                <span className="text-xs text-muted-foreground">
+                  {option.description}
+                </span>
+              </div>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 });

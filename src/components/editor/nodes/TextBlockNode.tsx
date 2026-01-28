@@ -37,15 +37,6 @@ const nodeTypeStyles: Record<
   },
 };
 
-const nodeTypeLabels: Record<NodeType, string> = {
-  'heading-1': 'H1',
-  'heading-2': 'H2',
-  'heading-3': 'H3',
-  'heading-4': 'H4',
-  'list-item': '•',
-  paragraph: '¶',
-};
-
 export const TextBlockNode = memo(function TextBlockNode({
   id,
   data,
@@ -143,15 +134,8 @@ export const TextBlockNode = memo(function TextBlockNode({
         />
       )}
 
-      {/* Node type badge */}
-      <NodeTypeSelector currentType={nodeData.nodeType} onSelect={handleNodeTypeChange}>
-        <button
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-muted text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/80 hover:text-foreground"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {nodeTypeLabels[nodeData.nodeType]}
-        </button>
-      </NodeTypeSelector>
+      {/* Node type badge with selector */}
+      <NodeTypeSelector currentType={nodeData.nodeType} onSelect={handleNodeTypeChange} />
 
       {/* Content area - centered */}
       <div className="flex min-w-[120px] max-w-[280px] flex-1 items-center justify-center gap-1">
